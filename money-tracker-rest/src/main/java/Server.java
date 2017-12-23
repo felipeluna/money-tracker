@@ -62,9 +62,11 @@ public class Server extends AbstractVerticle {
             router.get("/api/expenses").handler(Routes::getAll);
             router.get("/api/expenses/:date").handler(Routes::getAllExpensesByDate);
 
+            int port = Integer.getInteger("http.port");
+            
             vertx.createHttpServer()
                     .requestHandler(router::accept)
-                    .listen(8080, result -> {
+                    .listen(port, result -> {
                         if (result.succeeded()) {
                             future.complete();
                         } else {
